@@ -5,6 +5,7 @@ on:
       - "master"
     types:
       - opened
+      - edited
       - reopened
       - synchronize
       - ready_for_review
@@ -19,7 +20,7 @@ jobs:
         run: |
           # Strict rule: contestant/<name>
           # Example: contestant/alice-01
-          if [[ ! "$PR_TITLE" =~ ^contestant\/[a-z0-9._-]+:\ .+ ]]; then
+          if [[ ! "$PR_TITLE" =~ ^contestant\/[a-z0-9._-]+$ ]]; then
             echo "Invalid PR title: '$PR_TITLE'"
             echo "Required format: contestant/<name>"
             exit 1
