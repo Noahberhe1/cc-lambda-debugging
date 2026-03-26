@@ -22,12 +22,12 @@ import json
 
 def lambda_handler(event, context=None):
 
-    word = event['word']
+    word = event.get('word')
     res = []
 
-    if word == None:
+    if word is None:
         return {
-            'statusCode': 400,
+            'statusCode': 200,
             'body': json.dumps('Error: word field does not exist')
         }
     
