@@ -8,12 +8,20 @@ Expected output: {"statusCode": 200, "body": 77}
 import json
 
 def lambda_handler(event, context=None):
-    celsius = float(event.get('temperature'))
+    temperature = event.get('temperature')
     
-    if celsius is None:
+    if temperature is None:
         return {
-            'statusCode': 200,
+            'statusCode': 400,
             'body': json.dumps('Error: temperature field is required')
+        }
+
+    try:
+        celsius = float(temperature)
+    except (TypeError, ValueError):
+        return {
+            'statusCode': 400,
+            'body': json.dumps('Error: temperature must be a valid number')
         }
     
     fahrenheit = celsius * 9/5 + 32
