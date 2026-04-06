@@ -24,7 +24,7 @@ def lambda_handler(event, context=None):
             'body': json.dumps('Error: temperature must be a valid number')
         }
     
-    fahrenheit = celsius * 9/5 + 32
+    fahrenheit = round(celsius * 9/5 + 32, 2)
     
     return {
         'statusCode': 200,
