@@ -22,19 +22,31 @@ import json
 
 def lambda_handler(event, context=None):
 
-    word = event['word']
+    word = event.get('word')
     res = []
 
-    if word == None:
+    if word is None:
         return {
             'statusCode': 400,
             'body': json.dumps('Error: word field does not exist')
         }
+
+    nato = {
+        'a': 'Alpha',
+        'e': 'Echo',
+        'i': 'India',
+        'o': 'Oscar',
+        'u': 'Uniform',
+        'y': 'Yankee'
+    }
     
     for char in word:
-        res.append(char)
+        if char.lower() in nato:
+            res.append(nato[char.lower()])
+        else:
+            res.append(char)
 
     return {
         'statusCode': 200,
-        'body': res
+        'body': ''.join(res)
     }
